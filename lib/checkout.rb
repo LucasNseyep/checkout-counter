@@ -5,6 +5,7 @@ class Checkout
     file_serialized = File.read(json_file)
     file = JSON.parse(file_serialized)
     @products = file["products"]
+    @discounts = file["discounts"]
     @items = []
     @sum_total = 0
   end
@@ -18,22 +19,29 @@ class Checkout
   end
 
   def total
-    @items.each do |item|
-      @sum_total += @products[item]
-    end
-    apply_discount!
+    calculate_subtotal!
+    apply_product_discounts!
     return @sum_total
   end
 
   private
 
-  def apply_discount!
-    # 2 for 1 deal for the `VOUCHER`s
-    voucher_count = @items.count("VOUCHER") / 2
-    @sum_total -= voucher_count * @products["VOUCHER"] if voucher_count.positive?
+  def calculate_subtotal!
+    @items.each do |item|
+      @sum_total += @products[item]
+    end
+  end
 
-    # 3 or more `TSHIRT`s and the price is 19
-    tshirt_count = @items.count("TSHIRT")
-    @sum_total -= tshirt_count * 1 if tshirt_count > 2
+  def apply_product_discounts!
+    @discounts["product_discounts"].each do |discount|
+      if discount[1]["type"] == "1=1"
+        puts discount[1]["product"]
+        product_count = @items.count(discount[0])
+        @sum_total -= product_count * discount[1]["amount"] if product_count >= discount[1]["units"]
+      elsif discount[1]["type"] == "2=1"
+        product_count = @items.count(discount[0]) / 2
+        @sum_total -= product_count * @products[discount[0]] if product_count.positive?
+      end
+    end
   end
 end

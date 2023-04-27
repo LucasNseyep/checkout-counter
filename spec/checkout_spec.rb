@@ -5,6 +5,6 @@ describe Checkout do
   let(:checkout) { Checkout.new('./price_rules.json') }
 
   it "has a way to access the checkout total" do
-    expect(checkout.total).to eq 0
+    expect(checkout.total).to eq 200
   end
 end

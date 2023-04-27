@@ -70,6 +70,8 @@ Style/RedundantCondition:
   Enabled: false
 Layout/EndOfLine:
   Enabled: false
+Style/CaseLikeIf:
+  Enabled: false
 
 AllCops:
   NewCops: enable

@@ -1,1 +1,21 @@
-{ "products" : { "TSHIRT": 20.00, "VOUCHER": 5.00, "MUG": 7.50 }, "discounts": {} }
+{
+  "products": {
+    "TSHIRT": 20,
+    "VOUCHER": 5,
+    "MUG": 7.5
+  },
+  "discounts": {
+    "product_discounts": {
+      "TSHIRT": {
+        "product": "TSHIRT",
+        "type": "1=1",
+        "units": 3,
+        "amount": 1
+      },
+      "VOUCHER": {
+        "product": "VOUCHER",
+        "type": "2=1"
+      }
+    }
+  }
+}
