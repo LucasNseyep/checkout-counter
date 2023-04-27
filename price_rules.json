@@ -1,1 +1,1 @@
-{ "products" : { "TSHIRT": 20.00, "VOUCHER": 5.00, "MUG": 7.50 } }
+{ "products" : { "TSHIRT": 20.00, "VOUCHER": 5.00, "MUG": 7.50 }, "discounts": {} }
