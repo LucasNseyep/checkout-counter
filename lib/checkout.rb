@@ -35,12 +35,11 @@ class Checkout
   def apply_product_discounts!
     @discounts["product_discounts"].each do |discount|
       if discount[1]["type"] == "1=1"
-        puts discount[1]["product"]
-        product_count = @items.count(discount[0])
+        product_count = @items.count(discount[1]["product"])
         @sum_total -= product_count * discount[1]["amount"] if product_count >= discount[1]["units"]
       elsif discount[1]["type"] == "2=1"
-        product_count = @items.count(discount[0]) / 2
-        @sum_total -= product_count * @products[discount[0]] if product_count.positive?
+        product_count = @items.count(discount[1]["product"]) / 2
+        @sum_total -= product_count * @products[discount[1]["product"]] if product_count.positive?
       end
     end
   end
