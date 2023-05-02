@@ -2,7 +2,11 @@ require 'json'
 require_relative "../lib/checkout"
 
 describe Checkout do
-  let(:checkout) { Checkout.new('./price_rules.json') }
+  json_path = './price_rules.json'
+  file_serialized = File.read(json_path)
+  file = JSON.parse(file_serialized)
+  let(:products) { file["products"] }
+  let(:checkout) { Checkout.new(json_path) }
 
   it "Checkout constructor should take exactly one parameter" do
     initialize_parameters_count = Checkout.allocate.method(:initialize).arity
@@ -17,11 +21,10 @@ describe Checkout do
   end
 
   describe "#scan (instance method)" do
-    it "should update scanned total" do
+    it "should update total when a stocked product is scanned" do
       expect(checkout.total).to eq(0)
-      # this is assuming that "TSHIRT will always be a product"
-      checkout.scan("TSHIRT")
-      expect(checkout.total).to eq(20)
+      checkout.scan(products.first.first)
+      expect(checkout.total).to eq(products[products.first.first])
     end
   end
 end
