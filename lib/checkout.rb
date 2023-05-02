@@ -4,8 +4,8 @@ class Checkout
   def initialize(json_file)
     file_serialized = File.read(json_file)
     file = JSON.parse(file_serialized)
-    @products = file["products"]
-    @discounts = file["discounts"]
+    @products = file["products"] # hash where the keys are the product codes and the values their price
+    @discounts = file["discounts"] # hash of hashes with the discounts
     @items = []
     @sum_total = 0
   end
@@ -14,7 +14,7 @@ class Checkout
     if @products[item]
       @items.append(item)
     else
-      return "Sorry, we don't stock that item :("
+      return 404
     end
   end
 
@@ -37,8 +37,8 @@ class Checkout
       if discount[1]["type"] == "1=1"
         product_count = @items.count(discount[1]["product"])
         @sum_total -= product_count * discount[1]["amount"] if product_count >= discount[1]["units"]
-      elsif discount[1]["type"] == "2=1"
-        product_count = @items.count(discount[1]["product"]) / 2
+      elsif discount[1]["type"] == "n=1"
+        product_count = @items.count(discount[1]["product"]) / discount[1]["units"]
         @sum_total -= product_count * @products[discount[1]["product"]] if product_count.positive?
       end
     end
