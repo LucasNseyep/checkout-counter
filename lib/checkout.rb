@@ -37,9 +37,10 @@ class Checkout
       if discount[1]["type"] == "1=1"
         product_count = @items.count(discount[1]["product"])
         @sum_total -= product_count * discount[1]["amount"] if product_count >= discount[1]["units"]
-      elsif discount[1]["type"] == "n=1"
-        product_count = @items.count(discount[1]["product"]) / discount[1]["units"]
-        @sum_total -= product_count * @products[discount[1]["product"]] if product_count.positive?
+      elsif discount[1]["type"] == "n=m"
+        free_products = discount[1]["n-units"] - discount[1]["m-units"] # "free" products covered by the discount
+        product_count = @items.count(discount[1]["product"]) / discount[1]["n-units"] # finding the n groupings of items
+        @sum_total -= product_count * @products[discount[1]["product"]] * free_products if product_count.positive?
       end
     end
   end

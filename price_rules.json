@@ -14,8 +14,9 @@
       },
       "VOUCHER": {
         "product": "VOUCHER",
-        "type": "n=1",
-        "units": 2
+        "type": "n=m",
+        "n-units": 2,
+        "m-units": 1
       }
     }
   }
