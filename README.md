@@ -1,5 +1,4 @@
-# Physical Store Checkout - Lucas Nseyep Solution
-
+# Physical Store Checkout
 ## Instructions
 
 To run the solution:
