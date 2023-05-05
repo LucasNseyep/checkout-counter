@@ -1,6 +1,4 @@
-# NOVICAP
-
-# Code Challenge - Physical Store Checkout - Lucas Nseyep Solution
+# Physical Store Checkout - Lucas Nseyep Solution
 
 ## Instructions
 
@@ -15,6 +13,8 @@ ruby lib/interface.rb
 To run the tests (and linter):
 
 ```bash
+# The tests were made using rake and rspec. Please make sure that those are installed in your environment.
+
 rake
 ```
 
